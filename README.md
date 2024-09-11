@@ -59,6 +59,6 @@ Make sure to keep the following important files updated:
 - WordPress 5.0 or higher.
 - PHP 7.0 or higher.
 
-### License
+## License
 
 This plugin is licensed under the GPL-2.0+ license. You are free to use, modify, and distribute it as long as you retain the same license.
