@@ -2,6 +2,8 @@
 
 A simple WordPress plugin that calculates and displays the estimated reading time for posts. The reading time is based on the word count of the post and a configurable reading speed. It offers several customization options, including label customization, time format, and the ability to exclude short posts.
 
+<img width="1239" alt="Screenshot 2024-09-11 at 4 09 39" src="https://github.com/user-attachments/assets/45fdde56-0243-4005-8984-b1dc532b5f50">
+
 ## Features
 
 - Automatically calculates reading time based on the post content.
