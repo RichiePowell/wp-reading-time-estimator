@@ -1,0 +1,39 @@
+/* Add padding and spacing to make the form more user-friendly */
+.rte-settings-page {
+  max-width: 600px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+}
+
+.rte-settings-page h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.rte-settings-page label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.rte-settings-page input[type="text"],
+.rte-settings-page input[type="number"],
+.rte-settings-page select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.rte-settings-page input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.rte-settings-page .submit {
+  margin-top: 20px;
+}

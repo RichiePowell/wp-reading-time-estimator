@@ -109,38 +109,54 @@ add_action( 'admin_menu', 'rte_register_options_page' );
  */
 function rte_options_page() {
 	$reading_speed = esc_attr( get_option( 'rte_reading_speed' ) );
-	$reading_time_label = esc_attr( get_option( 'rte_reading_time_label' ) );
+	$reading_time_label = esc_attr( get_option( 'rte_reading_time_label', 'Estimated reading time:' ) );
 	$reading_time_format = esc_attr( get_option( 'rte_reading_time_format' ) );
 	$auto_insert = get_option( 'rte_auto_insert', true );
 	$exclude_short_posts = get_option( 'rte_exclude_short_posts', false );
 	$short_post_word_count = esc_attr( get_option( 'rte_short_post_word_count', 300 ) );
 	?>
-	<div>
+	<div class="rte-settings-page">
 		<h2>Reading Time Estimator Settings</h2>
 		<form method="post" action="options.php">
-			<label for="rte_reading_speed">Reading Speed (Words per Minute):</label>
+			<label for="rte_reading_speed">Reading speed (words per minute):</label>
 			<input type="number" id="rte_reading_speed" name="rte_reading_speed" value="<?php echo $reading_speed; ?>" />
-			<br>
-			<label for="rte_reading_time_label">Label for Reading Time:</label>
+			
+			<label for="rte_reading_time_label">Label for reading time:</label>
 			<input type="text" id="rte_reading_time_label" name="rte_reading_time_label" value="<?php echo $reading_time_label; ?>" />
-			<br>
-			<label for="rte_reading_time_format">Time Format:</label>
+			
+			<label for="rte_reading_time_format">Time format:</label>
 			<select id="rte_reading_time_format" name="rte_reading_time_format">
 				<option value="full" <?php selected( $reading_time_format, 'full' ); ?>>Full (e.g., 5 minutes)</option>
 				<option value="short" <?php selected( $reading_time_format, 'short' ); ?>>Shorthand (e.g., 5m)</option>
 			</select>
-			<br>
-			<label for="rte_auto_insert">Automatically Insert in Posts:</label>
-			<input type="checkbox" id="rte_auto_insert" name="rte_auto_insert" value="1" <?php checked( 1, $auto_insert, true ); ?> />
-			<br>
-			<label for="rte_exclude_short_posts">Exclude Short Posts:</label>
-			<input type="checkbox" id="rte_exclude_short_posts" name="rte_exclude_short_posts" value="1" <?php checked( 1, $exclude_short_posts, true ); ?> />
-			<br>
-			<label for="rte_short_post_word_count">Word Count Threshold for Short Posts:</label>
+			
+			<label for="rte_auto_insert">
+				<input type="checkbox" id="rte_auto_insert" name="rte_auto_insert" value="1" <?php checked( 1, $auto_insert, true ); ?> />
+				Automatically insert in posts
+			</label>
+
+			<label for="rte_exclude_short_posts">
+				<input type="checkbox" id="rte_exclude_short_posts" name="rte_exclude_short_posts" value="1" <?php checked( 1, $exclude_short_posts, true ); ?> />
+				Exclude short posts
+			</label>
+
+			<label for="rte_short_post_word_count">Word count threshold for short posts:</label>
 			<input type="number" id="rte_short_post_word_count" name="rte_short_post_word_count" value="<?php echo $short_post_word_count; ?>" />
+			
 			<?php settings_fields( 'rte_options_group' ); ?>
 			<?php submit_button(); ?>
 		</form>
 	</div>
 	<?php
 }
+
+/**
+ * Enqueue custom styles for the plugin settings page.
+ */
+function rte_enqueue_admin_styles() {
+	// Only load the styles on the plugin's settings page
+	if ( isset( $_GET['page'] ) && $_GET['page'] === 'reading-time-estimator' ) {
+			wp_enqueue_style( 'rte-admin-style', plugins_url( 'admin-style.css', __FILE__ ) );
+	}
+}
+add_action( 'admin_enqueue_scripts', 'rte_enqueue_admin_styles' );
