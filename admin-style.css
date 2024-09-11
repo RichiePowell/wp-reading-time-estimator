@@ -1,9 +1,9 @@
-/* Add padding and spacing to make the form more user-friendly */
-.rte-settings-page {
+.rte-settings-page,
+.rte-settings-box {
   max-width: 600px;
   background-color: #fff;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-top: 8px;
 }
@@ -13,7 +13,8 @@
   margin-bottom: 20px;
 }
 
-.rte-settings-page label {
+.rte-settings-page label,
+.rte-settings-box label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
@@ -21,19 +22,56 @@
 
 .rte-settings-page input[type="text"],
 .rte-settings-page input[type="number"],
-.rte-settings-page select {
+.rte-settings-page select,
+.rte-settings-box input[type="text"],
+.rte-settings-box input[type="number"],
+.rte-settings-box select {
   width: 100%;
   padding: 8px;
-  margin-bottom: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
+  margin-bottom: 20px;
 }
 
-.rte-settings-page input[type="checkbox"] {
+.rte-settings-page input[type="checkbox"],
+.rte-settings-box input[type="checkbox"] {
   margin-right: 10px;
+  width: auto;
 }
 
-.rte-settings-page .submit {
-  margin-top: 20px;
+.rte-settings-box .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rte-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.rte-shortcode-info {
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.rte-shortcode-info pre {
+  background-color: #eee;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+@media screen and (min-width: 768px) {
+  .rte-grid-container {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .rte-shortcode-info {
+    grid-column: 1 / -1;
+  }
 }
