@@ -51,13 +51,13 @@ To add new features or modify the plugin, edit the files in the `/wp-content/plu
 
 Make sure to keep the following important files updated:
 
-    •	*reading-time-estimator.php*: Main plugin file, contains hooks and logic.
-    •	*settings.php*: Contains the settings logic and page.
+- _reading-time-estimator.php_: Main plugin file, contains hooks and logic.
+- _settings.php_: Contains the settings logic and page.
 
 ## Requirements
 
-    •	WordPress 5.0 or higher.
-    •	PHP 7.0 or higher.
+- WordPress 5.0 or higher.
+- PHP 7.0 or higher.
 
 ### License
 
