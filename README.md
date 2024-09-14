@@ -1,4 +1,4 @@
-# WP Reading Time Estimator Plugin
+# Reading Time Estimator Plugin
 
 A simple WordPress plugin that calculates and displays the estimated reading time for posts. The reading time is based on the word count of the post and a configurable reading speed. It offers several customization options, including label customization, time format, and the ability to exclude short posts.
 
@@ -16,7 +16,7 @@ A simple WordPress plugin that calculates and displays the estimated reading tim
 
 ## Installation
 
-1. Download the plugin and upload the folder `wp-reading-time-estimator` to the `/wp-content/plugins/` directory.
+1. Download the plugin and upload the folder `reading-time-estimator` to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the **Plugins** menu in WordPress.
 3. Go to **Settings > Reading Time Estimator** to customize the plugin options.
 

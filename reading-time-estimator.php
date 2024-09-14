@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WP Reading Time Estimator
+ * Plugin Name: Reading Time Estimator
  * Description: Estimates and displays reading time for posts.
  * Version: 1.0
  * Author: Richard Powell

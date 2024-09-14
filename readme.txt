@@ -1,4 +1,4 @@
-=== WP Reading Time Estimator ===
+=== Reading Time Estimator ===
 Contributors: richiepowell
 Tags: reading time, estimator, posts
 Requires at least: 5.0
@@ -11,18 +11,18 @@ A plugin that estimates and displays reading time for WordPress posts.
 
 == Description ==
 
-WP Reading Time Estimator calculates and displays the estimated reading time for posts. You can customize the label, the reading speed, and even choose between automatic insertion or manual using a shortcode.
+Reading Time Estimator calculates and displays the estimated reading time for posts. You can customize the label, the reading speed, and even choose between automatic insertion or manual using a shortcode.
 
 == Installation ==
 
-1. Upload `wp-reading-time-estimator` to the `/wp-content/plugins/` directory.
+1. Upload `reading-time-estimator` to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Configure settings from Settings -> Reading Time Estimator.
 
 == Changelog ==
 
 = 1.0 =
-* Initial release of WP Reading Time Estimator
+* Initial release of Reading Time Estimator
 
 == Frequently Asked Questions ==
 
