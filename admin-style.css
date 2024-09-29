@@ -1,31 +1,31 @@
-.rte-settings-page,
-.rte-settings-box {
+.rtestimator-settings-page,
+.rtestimator-settings-box {
   max-width: 600px;
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 8px;
+  margin-top: 15px;
 }
 
-.rte-settings-page h2 {
+.rtestimator-settings-page h2 {
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-.rte-settings-page label,
-.rte-settings-box label {
+.rtestimator-settings-page label,
+.rtestimator-settings-box label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.rte-settings-page input[type="text"],
-.rte-settings-page input[type="number"],
-.rte-settings-page select,
-.rte-settings-box input[type="text"],
-.rte-settings-box input[type="number"],
-.rte-settings-box select {
+.rtestimator-settings-page input[type="text"],
+.rtestimator-settings-page input[type="number"],
+.rtestimator-settings-page select,
+.rtestimator-settings-box input[type="text"],
+.rtestimator-settings-box input[type="number"],
+.rtestimator-settings-box select {
   width: 100%;
   padding: 8px;
   border: 1px solid #ddd;
@@ -34,30 +34,30 @@
   margin-bottom: 20px;
 }
 
-.rte-settings-page input[type="checkbox"],
-.rte-settings-box input[type="checkbox"] {
+.rtestimator-settings-page input[type="checkbox"],
+.rtestimator-settings-box input[type="checkbox"] {
   margin-right: 10px;
   width: auto;
 }
 
-.rte-settings-box .checkbox-group {
+.rtestimator-settings-box .checkbox-group {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.rte-grid-container {
+.rtestimator-grid-container {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 
-.rte-shortcode-info {
+.rtestimator-shortcode-info {
   padding: 20px;
   border-radius: 5px;
 }
 
-.rte-shortcode-info pre {
+.rtestimator-shortcode-info pre {
   background-color: #eee;
   padding: 5px;
   border-radius: 3px;
@@ -65,13 +65,13 @@
 }
 
 @media screen and (min-width: 768px) {
-  .rte-grid-container {
+  .rtestimator-grid-container {
     grid-template-columns: 2fr 1fr;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .rte-shortcode-info {
+  .rtestimator-shortcode-info {
     grid-column: 1 / -1;
   }
 }
