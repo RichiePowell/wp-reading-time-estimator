@@ -56,7 +56,7 @@ function rtestimator_format_reading_time( $reading_time, $format = 'full' ) {
  * @return array The calculated reading time in hours, minutes, and seconds.
  */
 function rtestimator_calculate_reading_time( $content ) {
-    $word_count = str_word_count( strip_tags( $content ) );
+    $word_count = str_word_count( wp_strip_all_tags( $content ) );
     $reading_speed = get_option( 'rtestimator_reading_speed', 200 ); // Use saved option or default 200
     $total_seconds = ceil( ($word_count / $reading_speed) * 60 ); // Total time in seconds
 
@@ -103,7 +103,7 @@ function rtestimator_display_reading_time( $content ) {
 
     // Check if automatic insertion is enabled
     if ( is_single() && get_option( 'rtestimator_auto_insert', true ) ) {
-        $word_count = str_word_count( strip_tags( $content ) );
+        $word_count = str_word_count( wp_strip_all_tags( $content ) );
         $exclude_short_posts = get_option( 'rtestimator_exclude_short_posts', false );
         $short_post_word_count = get_option( 'rtestimator_short_post_word_count', 300 );
 
@@ -177,44 +177,41 @@ add_action( 'admin_menu', 'rtestimator_register_options_page' );
  * @return void
  */
 function rtestimator_options_page() {
-    $reading_speed = esc_attr( get_option( 'rtestimator_reading_speed' ) );
-    $reading_time_label = esc_attr( get_option( 'rtestimator_reading_time_label', 'Estimated reading time:' ) );
-    $reading_time_format = esc_attr( get_option( 'rtestimator_reading_time_format' ) );
-    $auto_insert = get_option( 'rtestimator_auto_insert', true );
-    $exclude_short_posts = get_option( 'rtestimator_exclude_short_posts', false );
-    $short_post_word_count = esc_attr( get_option( 'rtestimator_short_post_word_count', 300 ) );
+    // Ensure nonce field for security
     ?>
     <div class="rtestimator-grid-container">
         <!-- Main Settings Form -->
         <div class="rtestimator-settings-box">
             <h2>Reading Time Estimator Settings</h2>
             <form method="post" action="options.php">
+                <?php settings_fields( 'rtestimator_options_group' ); ?>
+                <?php wp_nonce_field( 'rtestimator_save_settings', 'rtestimator_nonce' ); ?>
+                
                 <label for="rtestimator_reading_speed">Reading speed (words per minute):</label>
-                <input type="number" id="rtestimator_reading_speed" name="rtestimator_reading_speed" value="<?php echo $reading_speed; ?>" />
+                <input type="number" id="rtestimator_reading_speed" name="rtestimator_reading_speed" value="<?php echo esc_attr( get_option( 'rtestimator_reading_speed' ) ); ?>" />
                 
                 <label for="rtestimator_reading_time_label">Label for reading time:</label>
-                <input type="text" id="rtestimator_reading_time_label" name="rtestimator_reading_time_label" value="<?php echo $reading_time_label; ?>" />
+                <input type="text" id="rtestimator_reading_time_label" name="rtestimator_reading_time_label" value="<?php echo esc_html( get_option( 'rtestimator_reading_time_label', 'Estimated Reading Time:' ) ); ?>" />
                 
                 <label for="rtestimator_reading_time_format">Time format:</label>
                 <select id="rtestimator_reading_time_format" name="rtestimator_reading_time_format">
-                    <option value="full" <?php selected( $reading_time_format, 'full' ); ?>>Full (e.g., 5 minutes)</option>
-                    <option value="short" <?php selected( $reading_time_format, 'short' ); ?>>Shorthand (e.g., 5m)</option>
+                    <option value="full" <?php selected( get_option( 'rtestimator_reading_time_format' ), 'full' ); ?>>Full (e.g., 5 minutes)</option>
+                    <option value="short" <?php selected( get_option( 'rtestimator_reading_time_format' ), 'short' ); ?>>Shorthand (e.g., 5m)</option>
                 </select>
                 
                 <label for="rtestimator_auto_insert">
-                    <input type="checkbox" id="rtestimator_auto_insert" name="rtestimator_auto_insert" value="1" <?php checked( 1, $auto_insert, true ); ?> />
+                    <input type="checkbox" id="rtestimator_auto_insert" name="rtestimator_auto_insert" value="1" <?php checked( 1, get_option( 'rtestimator_auto_insert', true ), true ); ?> />
                     Automatically insert in posts
                 </label>
 
                 <label for="rtestimator_exclude_short_posts">
-                    <input type="checkbox" id="rtestimator_exclude_short_posts" name="rtestimator_exclude_short_posts" value="1" <?php checked( 1, $exclude_short_posts, true ); ?> />
+                    <input type="checkbox" id="rtestimator_exclude_short_posts" name="rtestimator_exclude_short_posts" value="1" <?php checked( 1, get_option( 'rtestimator_exclude_short_posts', false ), true ); ?> />
                     Exclude short posts
                 </label>
 
                 <label for="rtestimator_short_post_word_count">Word count threshold for short posts:</label>
-                <input type="number" id="rtestimator_short_post_word_count" name="rtestimator_short_post_word_count" value="<?php echo $short_post_word_count; ?>" />
+                <input type="number" id="rtestimator_short_post_word_count" name="rtestimator_short_post_word_count" value="<?php echo esc_attr( get_option( 'rtestimator_short_post_word_count', 300 ) ); ?>" />
                 
-                <?php settings_fields( 'rtestimator_options_group' ); ?>
                 <?php submit_button(); ?>
             </form>
         </div>
@@ -237,7 +234,52 @@ function rtestimator_options_page() {
 function rtestimator_enqueue_admin_styles() {
     // Only load the styles on the plugin's settings page
     if ( isset( $_GET['page'] ) && $_GET['page'] === 'reading-time-estimator' ) {
-        wp_enqueue_style( 'rtestimator-admin-style', plugins_url( 'admin-style.css', __FILE__ ) );
+        wp_enqueue_style( 'rtestimator-admin-style', plugins_url( 'admin-style.css', __FILE__ ), array(), '1.0.0' );
     }
 }
 add_action( 'admin_enqueue_scripts', 'rtestimator_enqueue_admin_styles' );
+
+/**
+ * Validate the form and verify nonce before saving settings.
+ */
+function rtestimator_save_settings() {
+    // First, unslash the $_POST data
+    $post_data = wp_unslash( $_POST );
+
+    // Nonce verification
+    if ( ! isset( $post_data['rtestimator_nonce'] ) || ! wp_verify_nonce( $post_data['rtestimator_nonce'], 'rtestimator_save_settings' ) ) {
+        wp_die( 'Invalid nonce verification. Settings not saved.' );
+    }
+
+    // Sanitize and save the reading speed setting
+    if ( isset( $post_data['rtestimator_reading_speed'] ) ) {
+        $reading_speed = absint( $post_data['rtestimator_reading_speed'] );
+        update_option( 'rtestimator_reading_speed', $reading_speed );
+    }
+
+    // Sanitize and save the reading time label setting
+    if ( isset( $post_data['rtestimator_reading_time_label'] ) ) {
+        $reading_time_label = sanitize_text_field( $post_data['rtestimator_reading_time_label'] );
+        update_option( 'rtestimator_reading_time_label', $reading_time_label );
+    }
+
+    // Sanitize and save the time format setting
+    if ( isset( $post_data['rtestimator_reading_time_format'] ) ) {
+        $reading_time_format = sanitize_text_field( $post_data['rtestimator_reading_time_format'] );
+        update_option( 'rtestimator_reading_time_format', $reading_time_format );
+    }
+
+    // Sanitize and save the auto insert option
+    $auto_insert = isset( $post_data['rtestimator_auto_insert'] ) ? 1 : 0;
+    update_option( 'rtestimator_auto_insert', $auto_insert );
+
+    // Sanitize and save the exclude short posts option
+    $exclude_short_posts = isset( $post_data['rtestimator_exclude_short_posts'] ) ? 1 : 0;
+    update_option( 'rtestimator_exclude_short_posts', $exclude_short_posts );
+
+    // Sanitize and save the short post word count
+    if ( isset( $post_data['rtestimator_short_post_word_count'] ) ) {
+        $short_post_word_count = absint( $post_data['rtestimator_short_post_word_count'] );
+        update_option( 'rtestimator_short_post_word_count', $short_post_word_count );
+    }
+}
